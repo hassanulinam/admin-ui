@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
+import AdminView from "./components/AdminView";
+import FailureView from "./components/FailureView";
+import LoadingView from "./components/LoadingView";
+import { Person } from "./customTypes";
+import "./App.css";
 
-function App() {
+const apiConstants = {
+  initial: "INITIAL",
+  inProgress: "LOADING",
+  success: "SUCCESS",
+  failure: "FAILED",
+};
+
+const App = () => {
+  const [data, setData] = useState<Person[]>([]);
+  const [apiStatus, setApiStatus] = useState(apiConstants.initial);
+
+  const fetchData = async () => {
+    setApiStatus(apiConstants.inProgress);
+    const url =
+      "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      setData(data);
+      setApiStatus(apiConstants.success);
+    } else setApiStatus(apiConstants.failure);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const renderViewBasedOnApiStatus = () => {
+    switch (apiStatus) {
+      case apiConstants.inProgress:
+        return <LoadingView />;
+      case apiConstants.success:
+        return <AdminView data={data} setData={setData} />;
+      default:
+        return <FailureView />;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="pt-2 pb-5">{renderViewBasedOnApiStatus()}</Container>
   );
-}
+};
 
 export default App;
