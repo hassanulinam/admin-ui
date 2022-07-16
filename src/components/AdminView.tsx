@@ -10,7 +10,7 @@ type CustomProps = {
 
 const AdminView = ({ data, setData }: CustomProps) => {
   const [searchInput, setSearchInput] = useState("");
-  const [searchResults, setSearchResults] = useState([...data]);
+  const [searchResults, setSearchResults] = useState([...data].slice(0, 10));
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [isSelectedAll, setIsSelectedAll] = useState(false);
 
@@ -26,17 +26,25 @@ const AdminView = ({ data, setData }: CustomProps) => {
   };
   const deleteMultipleRows = () => {
     setData(data.filter((p) => !selectedRows.includes(p.id)));
+    setSelectedRows([]);
+    setIsSelectedAll(false); // clear the selection state after deletion.
   };
 
   useEffect(() => {
     setSearchResults(
-      data.filter((p) =>
-        Object.values(p).some((k) =>
-          k.toLowerCase().includes(searchInput.toLowerCase())
+      data
+        .filter((p) =>
+          Object.values(p).some((k) =>
+            k.toLowerCase().includes(searchInput.toLowerCase())
+          )
         )
-      )
+        .slice(0, 10)
     );
   }, [searchInput, data]);
+
+  useEffect(() => {
+    if (isSelectedAll) setSelectedRows(searchResults.map((p) => p.id));
+  }, [isSelectedAll]); // select all rows on SelectAll.
 
   return (
     <div>

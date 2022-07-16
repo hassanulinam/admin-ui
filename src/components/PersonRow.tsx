@@ -18,7 +18,11 @@ const PersonRow = ({
   onSelect,
   onUnSelect,
 }: CustomProps) => {
-  const [isChecked, setIsChecked] = useState(isSelectedAll);
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    setIsChecked(isSelectedAll);
+  }, [isSelectedAll]);
 
   useEffect(() => {
     isChecked ? onSelect(pdata.id) : onUnSelect(pdata.id);
@@ -43,7 +47,10 @@ const PersonRow = ({
           onClick={() => onEdit(pdata.id)}
         ></i>
         <span className="m-2"></span>
-        <i className="fa-solid fa-trash" onClick={() => onDelete(pdata.id)}></i>
+        <i
+          className="fa fa-trash color-red"
+          onClick={() => onDelete(pdata.id)}
+        ></i>
       </td>
     </tr>
   );
