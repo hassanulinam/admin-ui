@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { DataState } from "../context/DataContextProvider";
 import { Person } from "../customTypes";
 
 type CustomProps = {
   pdata: Person;
   onEdit: (newRowId: string) => void;
-  onDelete: (rowId: string) => void;
   isSelectedAll: boolean;
   onSelect: (rowId: string) => void;
   onUnSelect: (rowId: string) => void;
@@ -13,12 +13,12 @@ type CustomProps = {
 const PersonRow = ({
   pdata,
   onEdit,
-  onDelete,
   isSelectedAll,
   onSelect,
   onUnSelect,
 }: CustomProps) => {
   const [isChecked, setIsChecked] = useState(false);
+  const { deleteRow } = DataState();
 
   useEffect(() => {
     setIsChecked(isSelectedAll);
@@ -49,7 +49,7 @@ const PersonRow = ({
         <span className="m-2"></span>
         <i
           className="fa fa-trash color-red"
-          onClick={() => onDelete(pdata.id)}
+          onClick={() => deleteRow(pdata.id)}
         ></i>
       </td>
     </tr>

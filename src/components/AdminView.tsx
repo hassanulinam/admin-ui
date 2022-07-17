@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
-import { Person } from "../customTypes";
 import { DataState } from "../context/DataContextProvider";
 import PersonRow from "./PersonRow";
 
@@ -13,9 +12,7 @@ const AdminView = () => {
   const [isSelectedAll, setIsSelectedAll] = useState(false);
 
   const editRow = (rowId: string) => {};
-  const deleteRow = (rowId: string) => {
-    setData(data.filter((p) => p.id !== rowId));
-  };
+
   const selectRow = (rowId: string) => {
     setSelectedRows([...selectedRows, rowId]);
   };
@@ -75,7 +72,6 @@ const AdminView = () => {
               key={p.id}
               pdata={p}
               onEdit={editRow}
-              onDelete={deleteRow}
               isSelectedAll={isSelectedAll}
               onSelect={selectRow}
               onUnSelect={unSelectRow}
