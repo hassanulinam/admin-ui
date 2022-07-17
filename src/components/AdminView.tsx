@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { Person } from "../customTypes";
+import { DataState } from "../context/DataContextProvider";
 import PersonRow from "./PersonRow";
 
-type CustomProps = {
-  data: Person[];
-  setData: React.Dispatch<React.SetStateAction<Person[]>>;
-};
+const AdminView = () => {
+  const { data, setData } = DataState();
 
-const AdminView = ({ data, setData }: CustomProps) => {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([...data].slice(0, 10));
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -26,8 +24,8 @@ const AdminView = ({ data, setData }: CustomProps) => {
   };
   const deleteMultipleRows = () => {
     setData(data.filter((p) => !selectedRows.includes(p.id)));
-    setSelectedRows([]);
-    setIsSelectedAll(false); // clear the selection state after deletion.
+    setSelectedRows([]); // clear the selection states after deletion.
+    setIsSelectedAll(false);
   };
 
   useEffect(() => {
@@ -44,7 +42,7 @@ const AdminView = ({ data, setData }: CustomProps) => {
 
   useEffect(() => {
     if (isSelectedAll) setSelectedRows(searchResults.map((p) => p.id));
-  }, [isSelectedAll]); // select all rows on SelectAll.
+  }, [isSelectedAll]); // selecting all rows...
 
   return (
     <div>

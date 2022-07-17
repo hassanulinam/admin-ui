@@ -3,8 +3,8 @@ import { Container } from "react-bootstrap";
 import AdminView from "./components/AdminView";
 import FailureView from "./components/FailureView";
 import LoadingView from "./components/LoadingView";
-import { Person } from "./customTypes";
 import "./App.css";
+import { DataState } from "./context/DataContextProvider";
 
 const apiConstants = {
   initial: "INITIAL",
@@ -14,7 +14,7 @@ const apiConstants = {
 };
 
 const App = () => {
-  const [data, setData] = useState<Person[]>([]);
+  const { data, setData } = DataState();
   const [apiStatus, setApiStatus] = useState(apiConstants.initial);
 
   const fetchData = async () => {
@@ -38,7 +38,7 @@ const App = () => {
       case apiConstants.inProgress:
         return <LoadingView />;
       case apiConstants.success:
-        return <AdminView data={data} setData={setData} />;
+        return <AdminView />;
       default:
         return <FailureView />;
     }

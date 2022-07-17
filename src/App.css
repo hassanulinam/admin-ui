@@ -56,3 +56,8 @@
 .color-red {
   color: red;
 }
+
+td > i,
+td > input[type="checkbox"] {
+  cursor: pointer;
+}
