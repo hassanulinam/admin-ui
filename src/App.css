@@ -61,3 +61,7 @@ td > i,
 td > input[type="checkbox"] {
   cursor: pointer;
 }
+
+.persons-table {
+  height: 500px;
+}

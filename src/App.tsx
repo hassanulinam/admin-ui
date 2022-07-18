@@ -14,7 +14,7 @@ const apiConstants = {
 };
 
 const App = () => {
-  const { data, setData } = DataState();
+  const { data, setData, setSearchResults } = DataState();
   const [apiStatus, setApiStatus] = useState(apiConstants.initial);
 
   const fetchData = async () => {
@@ -25,6 +25,7 @@ const App = () => {
     if (response.ok) {
       const data = await response.json();
       setData(data);
+      setSearchResults([...data]);
       setApiStatus(apiConstants.success);
     } else setApiStatus(apiConstants.failure);
   };

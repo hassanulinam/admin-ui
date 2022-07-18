@@ -5,20 +5,13 @@ import { Person } from "../customTypes";
 type CustomProps = {
   pdata: Person;
   onEdit: (newRowId: string) => void;
-  isSelectedAll: boolean;
   onSelect: (rowId: string) => void;
   onUnSelect: (rowId: string) => void;
 };
 
-const PersonRow = ({
-  pdata,
-  onEdit,
-  isSelectedAll,
-  onSelect,
-  onUnSelect,
-}: CustomProps) => {
+const PersonRow = ({ pdata, onEdit, onSelect, onUnSelect }: CustomProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  const { deleteRow } = DataState();
+  const { deleteRow, isSelectedAll } = DataState();
 
   useEffect(() => {
     setIsChecked(isSelectedAll);
