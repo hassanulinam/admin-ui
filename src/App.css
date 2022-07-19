@@ -65,3 +65,17 @@ td > input[type="checkbox"] {
 .persons-table {
   height: 500px;
 }
+
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+.delete-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: red;
+  color: white;
+  font-size: 14px;
+}

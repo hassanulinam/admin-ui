@@ -3,8 +3,8 @@ import { Container } from "react-bootstrap";
 import AdminView from "./components/AdminView";
 import FailureView from "./components/FailureView";
 import LoadingView from "./components/LoadingView";
-import "./App.css";
 import { DataState } from "./context/DataContextProvider";
+import "./App.css";
 
 const apiConstants = {
   initial: "INITIAL",
@@ -14,7 +14,7 @@ const apiConstants = {
 };
 
 const App = () => {
-  const { data, setData, setSearchResults } = DataState();
+  const { setData, setSearchResults } = DataState();
   const [apiStatus, setApiStatus] = useState(apiConstants.initial);
 
   const fetchData = async () => {

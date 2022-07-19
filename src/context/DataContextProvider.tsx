@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Person, TypeDataContext } from "../customTypes";
 
 const DataContext = createContext<TypeDataContext>({
@@ -26,15 +26,13 @@ const DataContextProvider = ({ children }: { children: JSX.Element }) => {
 
   const getRowsOnPage = () => searchResults.slice((page - 1) * 10, page * 10);
 
-  const adjustPagesAfterDeletion = () => {
+  useEffect(() => {
     if (getRowsOnPage().length === 0) setPage(page - 1 || 1);
-    console.log("Changing Active page...", page);
-  };
+  }, [searchResults]);
 
   const deleteRow = (rowId: string) => {
     setSearchResults(searchResults.filter((p) => p.id !== rowId));
     setData(data.filter((p) => p.id !== rowId));
-    adjustPagesAfterDeletion();
   };
 
   const deleteMultipleRows = () => {
@@ -42,7 +40,6 @@ const DataContextProvider = ({ children }: { children: JSX.Element }) => {
     setData(data.filter((p) => !selectedRows.includes(p.id)));
     setSelectedRows([]); // clear the selection states after deletion.
     setIsSelectedAll(false);
-    adjustPagesAfterDeletion();
   };
 
   return (

@@ -17,6 +17,18 @@ const CustomPagiation = () => {
     setIsSelectedAll(false);
   }, [page]);
 
+  items.push(
+    <Pagination.First onClick={() => setPage(1)} disabled={page === 1}>
+      &#60;&#60;
+    </Pagination.First>,
+    <Pagination.Prev
+      onClick={() => setPage(page - 1 || 1)}
+      disabled={page === 1}
+    >
+      &#60;
+    </Pagination.Prev>
+  );
+
   for (let i = 1; i <= totalPages; i++) {
     items.push(
       <Pagination.Item key={i} active={i === page} onClick={() => setPage(i)}>
@@ -24,14 +36,23 @@ const CustomPagiation = () => {
       </Pagination.Item>
     );
   }
+  items.push(
+    <Pagination.Next
+      onClick={() => setPage(page + 1)}
+      disabled={page === totalPages}
+    >
+      &#62;
+    </Pagination.Next>,
+    <Pagination.Last
+      onClick={() => setPage(totalPages)}
+      disabled={page === totalPages}
+    >
+      &#62;&#62;
+    </Pagination.Last>
+  );
 
   if (searchResults.length > 10)
-    return (
-      <div>
-        <Pagination>{items}</Pagination>
-      </div>
-    );
-
+    return <Pagination style={{ margin: "0 auto" }}>{items}</Pagination>;
   return null;
 };
 

@@ -84,10 +84,12 @@ const AdminView = () => {
           </tbody>
         </Table>
       </div>
-      <CustomPagiation />
-      <Button variant="danger" onClick={deleteMultipleRows}>
-        Delete Selected
-      </Button>
+      <div className="d-flex">
+        <button className="delete-btn" onClick={deleteMultipleRows}>
+          Delete Selected
+        </button>
+        <CustomPagiation />
+      </div>
     </div>
   );
 };
