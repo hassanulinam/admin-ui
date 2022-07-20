@@ -15,6 +15,7 @@ const DataContext = createContext<TypeDataContext>({
   setPage: () => {},
   deleteMultipleRows: () => {},
   getRowsOnPage: () => [],
+  editRow: (rowId, modifiedData) => {},
 });
 
 const DataContextProvider = ({ children }: { children: JSX.Element }) => {
@@ -29,6 +30,13 @@ const DataContextProvider = ({ children }: { children: JSX.Element }) => {
   useEffect(() => {
     if (getRowsOnPage().length === 0) setPage(page - 1 || 1);
   }, [searchResults]);
+
+  const editRow = (rowId: string, modifiedData: Person) => {
+    setSearchResults(
+      searchResults.map((p) => (p.id === rowId ? { ...modifiedData } : p))
+    );
+    setData(data.map((p) => (p.id === rowId ? { ...modifiedData } : p)));
+  };
 
   const deleteRow = (rowId: string) => {
     setSearchResults(searchResults.filter((p) => p.id !== rowId));
@@ -58,6 +66,7 @@ const DataContextProvider = ({ children }: { children: JSX.Element }) => {
         setPage,
         deleteMultipleRows,
         getRowsOnPage,
+        editRow,
       }}
     >
       {children}

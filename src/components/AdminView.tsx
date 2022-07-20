@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { DataState } from "../context/DataContextProvider";
 import CustomPagiation from "./CustomPagination";
 import PersonRow from "./PersonRow";
@@ -18,8 +18,6 @@ const AdminView = () => {
   } = DataState();
 
   const [searchInput, setSearchInput] = useState("");
-
-  const editRow = (rowId: string) => {};
 
   const selectRow = (rowId: string) => {
     setSelectedRows([...selectedRows, rowId]);
@@ -76,7 +74,6 @@ const AdminView = () => {
               <PersonRow
                 key={p.id}
                 pdata={p}
-                onEdit={editRow}
                 onSelect={selectRow}
                 onUnSelect={unSelectRow}
               />

@@ -25,6 +25,9 @@
   justify-content: center;
   align-items: center;
 }
+.flex-col {
+  flex-direction: column;
+}
 
 .failure-img {
   width: 100%;

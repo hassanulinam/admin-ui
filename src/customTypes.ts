@@ -19,4 +19,5 @@ export type TypeDataContext = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   deleteMultipleRows: () => void;
   getRowsOnPage: () => Person[];
+  editRow: (rowId: string, modifiedData: Person) => void;
 };

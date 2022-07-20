@@ -19,15 +19,19 @@ const App = () => {
 
   const fetchData = async () => {
     setApiStatus(apiConstants.inProgress);
-    const url =
-      "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
-    const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-      setData(data);
-      setSearchResults([...data]);
-      setApiStatus(apiConstants.success);
-    } else setApiStatus(apiConstants.failure);
+    try {
+      const url =
+        "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
+      const response = await fetch(url);
+      if (response.ok) {
+        const data = await response.json();
+        setData(data);
+        setSearchResults([...data]);
+        setApiStatus(apiConstants.success);
+      } else setApiStatus(apiConstants.failure);
+    } catch (err: any) {
+      setApiStatus(apiConstants.failure);
+    }
   };
 
   useEffect(() => {

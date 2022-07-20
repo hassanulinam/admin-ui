@@ -18,12 +18,17 @@ const CustomPagiation = () => {
   }, [page]);
 
   items.push(
-    <Pagination.First onClick={() => setPage(1)} disabled={page === 1}>
+    <Pagination.First
+      onClick={() => setPage(1)}
+      disabled={page === 1}
+      key="first"
+    >
       &#60;&#60;
     </Pagination.First>,
     <Pagination.Prev
       onClick={() => setPage(page - 1 || 1)}
       disabled={page === 1}
+      key="prev"
     >
       &#60;
     </Pagination.Prev>
@@ -40,12 +45,14 @@ const CustomPagiation = () => {
     <Pagination.Next
       onClick={() => setPage(page + 1)}
       disabled={page === totalPages}
+      key="next"
     >
       &#62;
     </Pagination.Next>,
     <Pagination.Last
       onClick={() => setPage(totalPages)}
       disabled={page === totalPages}
+      key="last"
     >
       &#62;&#62;
     </Pagination.Last>
